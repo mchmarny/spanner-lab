@@ -57,6 +57,6 @@ To accommodate Spanner specific DDL requirements this schema modifies TPC H tabl
 * FKs were refactored as table interleaves
 * Data types were remapped
   * int = INT64
-	* varchar(n) = STRING(n)
+  * varchar(n) = STRING(n)
   * decimal(n,2) = FLOAT64 (double precession)
-	* date = DATE
+  * date = DATE
