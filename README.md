@@ -27,7 +27,7 @@ All lab configuration files are in the `config.sh` file:
 * `SPANNER_INSTANCE_SIZE` = Size of the Spanner cluster [1]
 * `SPANNER_DB` = Name of the database in your Spanner cluster ["db"]
 * `SPANNER_DB_ZONE` = Default region/zone where the cluster will be created ["regional-us-central1"]
-* `SPANNER_DB_DDL` = Path to your schema DDL ["ddl/tpc-h-v2-17-3.ddl"]
+* `SPANNER_DB_DDL` = Path to your schema DDL ["ddl/tpch-v2-17-3.ddl"]
 
 ### Setup
 
@@ -53,10 +53,18 @@ Transaction Processing Performance Council (TPC) - [Benchmark H Standard Specifi
 
 To accommodate Spanner specific DDL requirements this schema modifies TPC H tables in following ways:
 
-* Table/Column prefixes = removed (it's 2017)
+* Column prefixes removed to enable interleaves
 * FKs were refactored as table interleaves
+  * REGION < NATION
+  * CUSTOMER < ORDERS < LINEITEM
 * Data types were remapped
   * int = INT64
   * varchar(n) = STRING(n)
   * decimal(n,2) = FLOAT64 (double precession)
   * date = DATE
+
+
+## TODO
+
+* Data loader, probably modified version of the [cockroachdb one](https://github.com/cockroachdb/loadgen/blob/master/tpch/load.go)
+* Distributed configuration demo (FT)
